@@ -33,7 +33,7 @@ public class ApiServiceImpl implements ApiService{
 		List data = null;
 		//TODO
 		//获取医院信息
-		return Result.success(data);
+		return Result.getSuccessResult(data);
 	}
 	
 	@Override
@@ -41,7 +41,7 @@ public class ApiServiceImpl implements ApiService{
 		List data = null;
 		//TODO
 		//获取医院科室信息
-		return Result.success(data);
+		return Result.getSuccessResult(data);
 	}
 	
 	@Override
@@ -49,7 +49,7 @@ public class ApiServiceImpl implements ApiService{
 		List data = null;
 		//TODO
 		//获取医院医生信息
-		return Result.success(data);
+		return Result.getSuccessResult(data);
 	}
 	
 	@Override
@@ -57,7 +57,7 @@ public class ApiServiceImpl implements ApiService{
 		List data = null;
 		//TODO
 		//获取医院医生排班信息
-		return Result.success(data);
+		return Result.getSuccessResult(data);
 	}
 	
 	@Override
@@ -65,7 +65,7 @@ public class ApiServiceImpl implements ApiService{
 		List data = null;
 		//TODO
 		//获取医院科室排班信息
-		return Result.success(data);
+		return Result.getSuccessResult(data);
 	}
 	
 	@Override
@@ -73,7 +73,7 @@ public class ApiServiceImpl implements ApiService{
 		List data = null;
 		//TODO
 		//获取号源信息
-		return Result.success(data);
+		return Result.getSuccessResult(data);
 	}
 	
 	@Override
@@ -81,7 +81,7 @@ public class ApiServiceImpl implements ApiService{
 		List data = null;
 		//TODO
 		//预约挂号
-		return Result.success(data);
+		return Result.getSuccessResult(data);
 	}
 	
 	@Override
@@ -89,7 +89,7 @@ public class ApiServiceImpl implements ApiService{
 		List data = null;
 		//TODO
 		//查询挂号信息
-		return Result.success(data);
+		return Result.getSuccessResult(data);
 	}
 	
 	@Override

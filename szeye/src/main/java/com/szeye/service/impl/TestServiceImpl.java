@@ -47,7 +47,7 @@ public class TestServiceImpl implements TestService{
 			dtos.add(ud);
 		});
 		
-		return Result.success(dtos);
+		return Result.getSuccessResult(dtos);
 	}
 
 	@Override

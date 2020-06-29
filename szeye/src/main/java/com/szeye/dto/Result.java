@@ -1,50 +1,115 @@
 package com.szeye.dto;
 
+import java.io.Serializable;
+
 import lombok.Data;
-import lombok.ToString;
 
 @Data
-@ToString
-public class Result {
+public class Result implements Serializable {
 	
-	public int code;
-	public String msg;
-	public boolean success;
-	public long total;
-	public Object data;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private int code;
+	private String msg;
+	private Object data;
+	private String token;
+	private boolean success;
+	private long total;
+	
+	public Result() {}
 	
 	private Result(int code, String msg){
 		this.code = code;
 		this.msg = msg;
-		this.success = true;
 	}
 	
 	private Result(ErrorCode ec){
-		this(ec.getCode(), ec.getMsg());		
+		this.code = ec.getCode();
+		this.msg = ec.getMsg();
 	}
 	
-	public static Result success(String msg){
-		return new Result(ErrorCode.OK.getCode(),msg);
+	private Result(ErrorCode ec,String msg){
+		this.code = ec.getCode();
+		this.msg = msg;
 	}
 	
-	public static Result success(Object obj){
-		Result result = new Result(ErrorCode.OK);
+	public static Result getSuccessResult(String msg){
+		Result result = new Result(ErrorCode.OK,msg);
+		result.setSuccess(true);
+		return result;
+	}
+	
+	public static Result getFailResult(String msg){
+		Result result = new Result(ErrorCode.ERROR,msg);
+		result.setSuccess(false);
+		return result;
+	}
+	
+	public static Result fail(String msg){
+		Result result = new Result(ErrorCode.ERROR,msg);
+		result.setSuccess(false);
+		return result;
+	}
+	
+	public static Result getFailResult(String msg,Object obj){
+		Result result = new Result(ErrorCode.ERROR,msg);
+		result.setSuccess(false);
 		result.setData(obj);
 		return result;
 	}
 	
-	public static Result success(){
-		return new Result(ErrorCode.OK.getCode(),"");
+	public static Result getFailResult(ErrorCode code,String msg){
+		Result result = new Result(code,msg);
+		result.setSuccess(false);
+		return result;
 	}
 	
-	public static Result failure(String msg){
-		Result r = new Result(ErrorCode.ERROR.getCode(),msg);
-		r.setSuccess(false);
-		return r;
+	public static Result getSuccessResult(){
+		Result result = new Result(ErrorCode.OK);
+		result.setSuccess(true);
+		return result;
 	}
+	
+	public static Result getSuccessResult(Object obj){
+		Result result = new Result(ErrorCode.OK);
+		result.setSuccess(true);
+		result.setData(obj);
+		return result;
+	}
+	
+	public static Result success(Object obj){
+		Result result = new Result(ErrorCode.OK);
+		result.setSuccess(true);
+		result.setData(obj);
+		return result;
+	}
+	
+	public static Result success(String msg){
+		Result result = new Result(ErrorCode.OK);
+		result.setSuccess(true);
+		result.setMsg(msg);
+		return result;
+	}
+	
+//	public static Result getFailResult(){
+//		Result result = new Result(ErrorCode.ERROR);
+//		result.setSuccess(false);
+//		return result;
+//	}
 	
 	public static Result getInstance(ErrorCode ec,String msg){
 		return new Result(ec.getCode(),msg);
+	}
+	
+	public static Result getInstance(ErrorCode ec){
+		return new Result(ec);
+	}
+	
+	public static Result getInstance(int code,String msg){
+		return new Result(code,msg);
 	}
 	
 }

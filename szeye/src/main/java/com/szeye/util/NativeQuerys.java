@@ -41,7 +41,7 @@ public class NativeQuerys implements Serializable{
 	
 	@SuppressWarnings({ "rawtypes", "deprecation" })
 	public Result queryAll(String sql, Class clazz,Map<String,Object> map) {
-		Result r = Result.success();
+		Result r = Result.getSuccessResult();
 		Query query = entityManager.createNativeQuery(sql).unwrap(NativeQuery.class)
 				.setResultTransformer(Transformers.aliasToBean(clazz));  
 	    
@@ -61,7 +61,7 @@ public class NativeQuerys implements Serializable{
 	
 	@SuppressWarnings({ "rawtypes", "deprecation" })
 	public Result queryPage(String sql, Class clazz,Map<String,Object> map,int start, int limit) {
-		Result r = Result.success();
+		Result r = Result.getSuccessResult();
 		Query query = entityManager.createNativeQuery(sql).unwrap(NativeQuery.class)
 				.setResultTransformer(Transformers.aliasToBean(clazz));  
 	    
