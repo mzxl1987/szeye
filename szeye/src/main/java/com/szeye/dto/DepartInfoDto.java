@@ -1,18 +1,19 @@
-package com.szeye.entity;
+package com.szeye.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.io.Serializable;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
-@ToString(callSuper=false)
-@Entity
-@Table(name="view_getDeptInfo")
-public class DepartInfo extends BaseEntity {
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
+public class DepartInfoDto implements Serializable {
 
 	/**
 	 * 

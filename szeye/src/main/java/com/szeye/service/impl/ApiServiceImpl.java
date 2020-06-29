@@ -2,13 +2,18 @@ package com.szeye.service.impl;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import com.szeye.dto.RequestInfoDto;
 import com.szeye.dto.Result;
+import com.szeye.dto.YyInfoDto;
+import com.szeye.entity.YyInfo;
 import com.szeye.repository.UserRepository;
 import com.szeye.service.ApiService;
 
@@ -23,7 +28,7 @@ public class ApiServiceImpl implements ApiService{
 	private UserRepository userRepository;
 
 	@Override
-	public Object getHostInfo() {
+	public Object getHostInfo(HttpServletRequest request,HttpServletResponse response) {
 		
 		List data = null;
 		//TODO
@@ -32,7 +37,7 @@ public class ApiServiceImpl implements ApiService{
 	}
 	
 	@Override
-	public Object getDeptInfo() {
+	public Object getDeptInfo(HttpServletRequest request,HttpServletResponse response) {
 		List data = null;
 		//TODO
 		//获取医院科室信息
@@ -40,7 +45,7 @@ public class ApiServiceImpl implements ApiService{
 	}
 	
 	@Override
-	public Object getDocInfo() {
+	public Object getDocInfo(HttpServletRequest request,HttpServletResponse response) {
 		List data = null;
 		//TODO
 		//获取医院医生信息
@@ -48,7 +53,7 @@ public class ApiServiceImpl implements ApiService{
 	}
 	
 	@Override
-	public Object getDocWorksInfo() {
+	public Object getDocWorksInfo(RequestInfoDto obj,HttpServletRequest request,HttpServletResponse response) {
 		List data = null;
 		//TODO
 		//获取医院医生排班信息
@@ -56,7 +61,7 @@ public class ApiServiceImpl implements ApiService{
 	}
 	
 	@Override
-	public Object getDeptWorksInfo() {
+	public Object getDeptWorksInfo(RequestInfoDto obj,HttpServletRequest request,HttpServletResponse response) {
 		List data = null;
 		//TODO
 		//获取医院科室排班信息
@@ -64,7 +69,7 @@ public class ApiServiceImpl implements ApiService{
 	}
 	
 	@Override
-	public Object getDtNoInfo() {
+	public Object getDtNoInfo(RequestInfoDto obj,HttpServletRequest request,HttpServletResponse response) {
 		List data = null;
 		//TODO
 		//获取号源信息
@@ -72,7 +77,7 @@ public class ApiServiceImpl implements ApiService{
 	}
 	
 	@Override
-	public Object getYyNo() {
+	public Object getYyNo(YyInfo obj,HttpServletRequest request,HttpServletResponse response) {
 		List data = null;
 		//TODO
 		//预约挂号
@@ -80,7 +85,7 @@ public class ApiServiceImpl implements ApiService{
 	}
 	
 	@Override
-	public Object getGhInfo() {
+	public Object getGhInfo(RequestInfoDto obj,HttpServletRequest request,HttpServletResponse response) {
 		List data = null;
 		//TODO
 		//查询挂号信息
@@ -88,7 +93,7 @@ public class ApiServiceImpl implements ApiService{
 	}
 	
 	@Override
-	public Object backNo() {
+	public Object backNo(RequestInfoDto obj,HttpServletRequest request,HttpServletResponse response) {
 		List data = null;
 		//TODO
 		//退号
@@ -96,7 +101,7 @@ public class ApiServiceImpl implements ApiService{
 	}
 	
 	@Override
-	public Object updateOrderInfo() {
+	public Object updateOrderInfo(YyInfoDto obj,HttpServletRequest request,HttpServletResponse response) {
 		List data = null;
 		//TODO
 		//退号

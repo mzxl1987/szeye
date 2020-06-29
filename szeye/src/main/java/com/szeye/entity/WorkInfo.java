@@ -11,7 +11,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper=false)
 @ToString(callSuper=false)
 @Entity
-@Table(name="view_getHosInfo")
+@Table(name="view_getDtNoInfo")
 public class WorkInfo extends BaseEntity {
 
 	/**

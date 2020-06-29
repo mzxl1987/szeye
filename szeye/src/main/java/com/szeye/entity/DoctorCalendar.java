@@ -13,7 +13,7 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper=false)
 @ToString(callSuper=false)
 @Entity
-@Table(name="view_getHosInfo")
+@Table(name="view_getDocWorksInfo")
 public class DoctorCalendar extends BaseEntity {
 
 	/**

@@ -1,20 +1,20 @@
-package com.szeye.entity;
+package com.szeye.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
-@EqualsAndHashCode(callSuper=false)
-@ToString(callSuper=false)
-@Entity
-@Table(name="view_getDeptWorksInfo")
-public class DepartCalendar extends BaseEntity {
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+@ToString
+public class DoctorCalendarDto implements Serializable {
 
 	/**
 	 * 
@@ -23,6 +23,7 @@ public class DepartCalendar extends BaseEntity {
 	
 	private String hospitalId;
 	private int workStatus;
+	private String doctorId;
 	private String departId;
 	private Date workDate;
 	private int workType;
@@ -31,5 +32,6 @@ public class DepartCalendar extends BaseEntity {
 	private int limited;
 	private float registryfee;
 	private float chinicfee;
+	private float expertsfee;
 	
 }

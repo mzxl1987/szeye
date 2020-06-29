@@ -1,31 +1,26 @@
-package com.szeye.entity;
+package com.szeye.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode
 @ToString
-@Entity
-@Table(name="t_user")
-public class YyInfo implements Serializable{
+public class YyInfoDto implements Serializable{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 8442472005915630644L;
 
-	@Id
-	private int id;
-	
 	private String hospitalId;
 	private String departId;
 	private String departName;
@@ -62,7 +57,7 @@ public class YyInfo implements Serializable{
 	private int beginTime;
 	private int endTime;
 	private String msgType;
-	
+	private int id;
 	private int reserveNo1;
 	private String errMsg;
 	private Date createDate;
