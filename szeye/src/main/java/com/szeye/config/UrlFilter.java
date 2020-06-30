@@ -1,4 +1,4 @@
-package com.szeye.filter;
+package com.szeye.config;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 public class UrlFilter implements Filter{
 
 	//排除不拦截的url
-    private static final String[] excludePathPatterns = { "/isOk", "login", "logout"};
+    private static final String[] excludePathPatterns = { "/isOk", "/login", "/logout", "/test"};
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
