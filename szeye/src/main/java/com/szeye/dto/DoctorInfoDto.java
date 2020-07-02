@@ -1,6 +1,7 @@
 package com.szeye.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,13 +19,13 @@ public class DoctorInfoDto implements Serializable {
 	
 	private String hospitalId;
 	private String doctorId;
-	private String departId;
+	private BigDecimal departId;
 	private String doctorName;
-	private int doctorSex;
+	private BigDecimal doctorSex;
 	private String doctorRank;
 	private String doctorInro;
 	private String doctorIntor;
-	private int isExpert;
-	private int aveWorktime;
+	private BigDecimal isExpert;
+	private String aveWorktime;
 	
 }

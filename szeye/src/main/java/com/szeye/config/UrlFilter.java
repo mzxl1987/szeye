@@ -31,7 +31,7 @@ public class UrlFilter implements Filter{
     		"/login", 
     		"/logout", 
     		"/test",
-    		"/getDtNoInfo"
+    		"/getDocInfo"
     		};
 	
 	@Override
