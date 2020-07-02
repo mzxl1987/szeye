@@ -1,7 +1,7 @@
-package com.szeye.entity;
+package com.szeye.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import java.io.Serializable;
+import java.math.BigDecimal;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,9 +10,7 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode(callSuper=false)
 @ToString(callSuper=false)
-@Entity
-@Table(name="view_getDtNoInfo")
-public class WorkInfo extends BaseEntity {
+public class WorkInfoDto implements Serializable {
 
 	/**
 	 * 
@@ -21,8 +19,8 @@ public class WorkInfo extends BaseEntity {
 
 	private String doctorId;
 	private String departId;
-	private int workDate;
-	private int workType;
+	private BigDecimal workDate;
+	private BigDecimal workType;
 	private String startTime;
 	private String endTime;
 	private int totalNum;

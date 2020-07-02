@@ -16,6 +16,7 @@ import com.szeye.dto.DepartCalendarDto;
 import com.szeye.dto.DoctorCalendarDto;
 import com.szeye.dto.RequestInfoDto;
 import com.szeye.dto.Result;
+import com.szeye.dto.WorkInfoDto;
 import com.szeye.dto.YyInfoDto;
 import com.szeye.entity.YyInfo;
 import com.szeye.service.ApiService;
@@ -119,12 +120,42 @@ public class ApiServiceImpl implements ApiService{
 		return nativeQuerys.queryAll(sql_query, DepartCalendarDto.class, params);
 	}
 	
+	/**
+	 * 号源信息
+	 */
 	@Override
 	public Object getDtNoInfo(RequestInfoDto obj,HttpServletRequest request,HttpServletResponse response) {
-		List data = null;
-		//TODO
 		//获取号源信息
-		return Result.getSuccessResult(data);
+		
+		String sql_query = "select "
+				+ "a.ysdm as DoctorId,"
+				+ "a.ksdm as DepartId,"
+				+ "a.ghrq as WorkDate,"
+				+ "a.zblb as WorkType,"
+				+ "a.kssj as StartTime,  "
+				+ "a.zzsj as EndTime,"
+				+ "a.kyzs as TotalNum,"
+				+ "(a.kyzs - isnull(b.yyzs,0)) as LeftNum, "
+				+ "isnull(b.yyzs,0) as CheckNum "
+				+ " from (select ksdm,ysdm,zblb,ghrq,kssj,zzsj,kssj+'-'+zzsj as qhsd,count(*) as kyzs "
+				+ "       from ms_yyhy "
+				+ "       where 1=1 "
+				+ "             and ysdm='1120' "
+				+ "             and ghrq='3' "
+				+ "             and zblb ='1'"
+				+ "       group by ksdm,ysdm,zblb,ghrq,kssj,zzsj) a "
+				+ " left join (select ksdm,ysdm,zblb,qhsd,count(*) as yyzs "
+				+ "            from ms_yygh "
+				+ "            where ghbz <> 4 "
+				+ "                  and ysdm='1120'  "
+				+ "                  and yyrq='2020-06-09' "
+				+ "                  and zblb ='1'  "
+				+ "            group by ksdm,ysdm,zblb,qhsd )b on a.qhsd=b.qhsd  "
+				+ " order by a.ksdm,a.ysdm,a.ghrq,a.zblb,a.kssj";
+		
+		Map<String,Object> params = new HashMap<>();
+		
+		return nativeQuerys.queryAll(sql_query, WorkInfoDto.class, params);
 	}
 	
 	@Override
