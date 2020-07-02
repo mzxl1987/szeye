@@ -1,6 +1,7 @@
 package com.szeye.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -22,16 +23,18 @@ public class DoctorCalendarDto implements Serializable {
 	private static final long serialVersionUID = 8442472005915630644L;
 	
 	private String hospitalId;
-	private int workStatus;
+	private BigDecimal workStatus;
 	private String doctorId;
 	private String departId;
+	
 	private Date workDate;
-	private int workType;
-	private int beginNo;
-	private int spaceNo;
-	private int limited;
-	private float registryfee;
-	private float chinicfee;
-	private float expertsfee;
+	
+	private BigDecimal workType;
+	private BigDecimal beginNo;
+	private BigDecimal spaceNo;
+	private BigDecimal limited;
+	private BigDecimal registryfee;
+	private BigDecimal chinicfee;
+	private BigDecimal expertsfee;
 	
 }

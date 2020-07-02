@@ -11,15 +11,29 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+
+import com.alibaba.fastjson.JSONObject;
+import com.szeye.dto.Result;
+import com.szeye.util.Common;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 @WebFilter(urlPatterns = "/**")
 public class UrlFilter implements Filter{
 
 	//排除不拦截的url
-    private static final String[] excludePathPatterns = { "/isOk", "/login", "/logout", "/test"};
+    private static final String[] excludePathPatterns = { "/isOk", 
+    		"/login", 
+    		"/logout", 
+    		"/test",
+    		"/getDocWorksInfo"
+    		};
 	
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -32,10 +46,26 @@ public class UrlFilter implements Filter{
         if (Arrays.asList(excludePathPatterns).contains(url)) {
             //放行，相当于第一种方法中LoginInterceptor返回值为true
             chain.doFilter(request, response);
-        }
+            return;
+        }else {
 
-        System.out.println("开始拦截了................");
-        //业务代码
+	        log.info("Filter Begin");
+	        
+	        //业务代码
+	        HttpSession session = req.getSession();
+	        String token = (String)session.getAttribute("token");
+	        if("".equals(token) || null == token || !Common.token.containsKey(token)) {
+	        	res.setCharacterEncoding("UTF-8");
+	        	
+	        	res.getWriter().write(JSONObject.toJSONString(Result.fail("token不正确")));
+	        	
+	        	log.info("TOKEN Error, URL : {} 没有通过拦截器",url);
+	        	return;
+	        }
+	        
+	        
+	        log.info("Filter End");
+        }
 		
 	}
 
