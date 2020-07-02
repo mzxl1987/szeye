@@ -1,7 +1,6 @@
 package com.szeye.dto;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +25,7 @@ public class RequestInfoDto implements Serializable{
 	private String endTime;
 	
 	private String doctorId;
-	private Date workDate;
+	private int workDate;
 	private int workType;
 	
 	private int id;

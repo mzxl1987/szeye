@@ -1,6 +1,8 @@
 package com.szeye.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,12 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import com.szeye.dto.DepartCalendarDto;
 import com.szeye.dto.DoctorCalendarDto;
 import com.szeye.dto.RequestInfoDto;
 import com.szeye.dto.Result;
 import com.szeye.dto.YyInfoDto;
 import com.szeye.entity.YyInfo;
-import com.szeye.repository.UserRepository;
 import com.szeye.service.ApiService;
 import com.szeye.util.NativeQuerys;
 
@@ -75,17 +77,46 @@ public class ApiServiceImpl implements ApiService{
 //				+ "c.ygxm as ygxm,"
 //				+ "c.ysjj as remark" 
 				+ " from ms_yspb a,ms_ghks b,gy_ygdm c" 
-				+ " where 1=1 and a.ksdm=b.ksdm and a.ysdm=c.ygdm and a.gzrq >= '2020-07-02' and a.gzrq < '2020-07-03' ;";
+				+ " where 1=1 and a.ksdm=b.ksdm and a.ysdm=c.ygdm and a.gzrq >= :startTime and a.gzrq < :endTime ;";
 		
-		return nativeQuerys.queryAll(sql_query, DoctorCalendarDto.class, null);
+		Map<String,Object> params = new HashMap<>();
+		params.put("startTime", obj.getBeginTime());
+		params.put("endTime", obj.getEndTime());
+		
+		return nativeQuerys.queryAll(sql_query, DoctorCalendarDto.class, params);
 	}
 	
+	/**
+	 * 科室排班信息
+	 */
 	@Override
 	public Object getDeptWorksInfo(RequestInfoDto obj,HttpServletRequest request,HttpServletResponse response) {
-		List data = null;
-		//TODO
 		//获取医院科室排班信息
-		return Result.getSuccessResult(data);
+		String sql_query = "select "
+				+ " a.tgbz as WorkStatus,"
+				+ "a.ghks as DepartId,"
+				+ "a.ghrq as WorkDate,"
+				+ "a.zblb as WorkType,"
+				+ "'' as BeginNo,"
+				+ "'' as SpaceNo,"
+				+ "'' as Limited, "
+				+ "b.ghf as Registryfee,"
+				+ "b.zlf as Chinicfee "
+//				+ "b.ksmc as ksmc,"
+//				+ "b.zzkspb as zzkspb,"
+//				+ "b.dwkfbz"
+				+ " from ms_kspb a ,ms_ghks b " 
+				+ " where 1=1 "
+				+ " and a.ghks=b.ksdm  "
+				+ " and a.ghrq = :ghrq" 
+				+ " and (b.dwkfbz ='0' or b.dwkfbz is null)" 
+				+ " and b.zjmz ='0'" 
+				+ " order by b.ksmc;";
+		
+		Map<String,Object> params = new HashMap<String, Object>();
+		params.put("ghrq",obj.getWorkDate());
+		
+		return nativeQuerys.queryAll(sql_query, DepartCalendarDto.class, params);
 	}
 	
 	@Override

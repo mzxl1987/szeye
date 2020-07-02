@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
 import com.szeye.dto.Result;
@@ -32,7 +31,7 @@ public class UrlFilter implements Filter{
     		"/login", 
     		"/logout", 
     		"/test",
-    		"/getDocWorksInfo"
+    		"/getDeptWorksInfo"
     		};
 	
 	@Override
@@ -46,7 +45,6 @@ public class UrlFilter implements Filter{
         if (Arrays.asList(excludePathPatterns).contains(url)) {
             //放行，相当于第一种方法中LoginInterceptor返回值为true
             chain.doFilter(request, response);
-            return;
         }else {
 
 	        log.info("Filter Begin");
