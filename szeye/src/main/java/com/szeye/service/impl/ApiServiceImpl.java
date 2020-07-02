@@ -13,11 +13,15 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.szeye.dto.DepartCalendarDto;
+import com.szeye.dto.DepartInfoDto;
 import com.szeye.dto.DoctorCalendarDto;
+import com.szeye.dto.DoctorInfoDto;
 import com.szeye.dto.RequestInfoDto;
 import com.szeye.dto.Result;
 import com.szeye.dto.WorkInfoDto;
 import com.szeye.dto.YyInfoDto;
+import com.szeye.entity.DepartInfo;
+import com.szeye.entity.DoctorInfo;
 import com.szeye.entity.YyInfo;
 import com.szeye.service.ApiService;
 import com.szeye.util.NativeQuerys;
@@ -41,20 +45,60 @@ public class ApiServiceImpl implements ApiService{
 		return Result.getSuccessResult(data);
 	}
 	
+	/**
+	 * 医院科室信息
+	 */
 	@Override
 	public Object getDeptInfo(HttpServletRequest request,HttpServletResponse response) {
-		List data = null;
-		//TODO
 		//获取医院科室信息
-		return Result.getSuccessResult(data);
+		String sql_query = "select "
+				+ "ksdm ,"
+				+ "ksmc as departName,"
+				+ "'' as DepartIntro,"
+				+ "ghlb,"
+				+ "ghf as Registryfee,"
+				+ "zlf as Chinicfee,"
+				+ "mzks,"
+				+ "case ksxb when 1 then 1 when 2 then 2 else 0 end as Departsex,"
+				+ "CASE WHEN ekbz = '1' THEN 1  WHEN etby = '1' THEN 2 ELSE 0 end as Babyflag," 
+				+ "CASE WHEN ekbz = '1' THEN 14  WHEN etby = '1' THEN 15 end as BabyAge,"
+				+ "kswz" 
+				+ " from Ms_ghks " 
+				+ " where ghlb in ('1','2','3','4')";
+		
+		return nativeQuerys.queryAll(sql_query, DepartInfoDto.class, null);
 	}
 	
+	/**
+	 * 获取医生信息
+	 */
 	@Override
 	public Object getDocInfo(HttpServletRequest request,HttpServletResponse response) {
-		List data = null;
-		//TODO
 		//获取医院医生信息
-		return Result.getSuccessResult(data);
+		
+		String sql_query = "select "
+				+ " ygdm as DoctorId ,"
+				+ " ksdm as DepartId,"
+				+ " ygxm as DoctorName,"
+				+ " ygxb as DoctorSex,"
+				+ "'' as DoctorRank,"
+				+ " case YGZW when 1 then '院长' when 2 then '书记' when 3 then '科主任'when 4 then '住院医生'"
+				+ " when 5 then '实习医生'when 6 then '普通职工'when 7 then '主治医师' "
+				+ " when 8 then '副主任医师'when 9 then '主任医师' "
+				+ " when 10 then '副主任护师' when 11 then '主任护师' end as DoctorRank,"
+				+ " ysjj as DoctorInro,"
+				+ " '' as DoctorIntor,"
+				+ " zjpb as IsExpert,"
+				+ " '' as AVeworktime,"
+				+ " YGZW "
+				+ " from gy_ygdm "
+				+ " where "
+				+ " kcfq='Y' "
+				+ " and zjpb = '1' "
+				+ " and ygdm not in ('0000') "
+				+ " and ygxb is not null";
+		
+		return nativeQuerys.queryAll(sql_query, DoctorInfoDto.class, null);
 	}
 	
 	/**
